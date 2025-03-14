@@ -1,3 +1,4 @@
+/* Acts as layout for the App */
 import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -8,7 +9,7 @@ export default function Root() {
         <>
             <Header/>
             <main>
-                <Outlet/>
+                <Outlet/> {/* This is where the routed components will render */}
             </main>
             <Footer/>
         </>

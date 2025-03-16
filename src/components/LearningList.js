@@ -1,22 +1,45 @@
 /* Displays list of all goals */
-import React, {useContext} from "react";
+import React, {useState, useContext} from "react";
 import { GoalContext } from "../context/GoalContext";
 import GoalItem from "./GoalItem";
+import GoalForm from "./GoalForm";
 
 
 export default function LearningList() {
-    const { goals } = useContext(GoalContext); /* Access list of all goals from GoalContext */
+    const { goalLists, editListTitle } = useContext(GoalContext);
+
+    const [isEditing, setIsEditing] = useState(null);
+    const [newTitle, setNewTitle] = useState("");
+
+    const handleEdit = (listId, currentTitle) => {
+        setIsEditing(listId);
+        setNewTitle(currentTitle);
+    }
+
+    if (!goalLists.length) {
+        return <p>No lists yet. Create one!</p>;
+    }
 
     return (
         <div>
-            <h2>Goals List</h2>
-            <ul>
-                {goals.map((goal) => ( /* maps over each goal and renders a GoalItem for each one */
-                     <li key={goal.id}> {/* Each goal is assigned a unique key */}
-                         <GoalItem goal={goal} /> {/* GoalItem is passed a goal prop containing the individual goal object */}
-                     </li> 
-                ))}
-            </ul>
+            {goalLists.map((list) => (
+                <div key={list.id}>
+                    <h2>{list.title}</h2>
+                    <button>Edit</button>
+                    <GoalForm listId={list.id} />
+                    <ul>
+                        {list.goals.length > 0 ? (
+                            list.goals.map((goal) => (
+                                <li key={goal.id}>
+                                    <GoalItem goal={goal} />
+                                </li>
+                            ))
+                        ) : (
+                            <p>No goals yet. Add one!</p>
+                        )}
+                    </ul>
+                </div>
+            ))}
         </div>
     );
 };

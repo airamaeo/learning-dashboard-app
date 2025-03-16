@@ -6,15 +6,24 @@ import { v4 as uuidv4 } from 'uuid';
 export const GoalContext = createContext() /*create context object for goals*/
 
 export function GoalProvider({children}) {
-    const [goalLists, setGoalLists] = useState([]); // ⬅️ Store multiple lists
+    const [goalLists, setGoalLists] = useState([]);
 
-    // ✅ Function to create a new list
+    // Function to create a new list
     const addList = (title) => {
         const newList = { id: uuidv4(), title, goals: [] };
         setGoalLists([...goalLists, newList]);
     };
 
-    // ✅ Function to add a goal to a specific list
+    // Function to edit list title
+    const editListTitle = (title, listId) => {
+        setGoalLists((prevLists) => {
+            return prevLists.map((list) =>
+                list.id === listId ? { ...list, title } : list
+            );
+        });
+    };
+
+    // Function to add a goal to a specific list
     const addGoal = (goalText, listId) => {
         setGoalLists((prevLists) =>
             prevLists.map((list) =>
@@ -29,7 +38,7 @@ export function GoalProvider({children}) {
         <div>
             {/* GoalContext.Provider makes the goals 
             & addGoal function available to child components (e.g. App) via the context */}
-            <GoalContext.Provider value={{ goalLists, addList, addGoal }}>
+            <GoalContext.Provider value={{ goalLists, addList, addGoal, editListTitle }}>
                 {children}
             </GoalContext.Provider>
         </div>

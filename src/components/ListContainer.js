@@ -17,11 +17,11 @@ export default function ListContainer() {
         <div>
             <input
                 type="text"
-                placeholder="New List Title"
+                placeholder="New Goals List Title"
                 value={listTitle}
                 onChange={(e) => setListTitle(e.target.value)}
             />
-            <button onClick={handleSubmit}>Create List</button>
+            <button onClick={handleSubmit}>+</button>
         </div>
     );
 }

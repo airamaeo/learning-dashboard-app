@@ -16,8 +16,7 @@ const router = createBrowserRouter(createRoutesFromElements( /*createRoutesFromE
     <Route path="/goal-item" element={<GoalItem />} />
     <Route path="/list-container" element={<ListContainer />} />
     <Route path="/learning-list" element={<LearningList />} />
-  </Route>,
-  { basename: '/learning-dashboard-app' }
+  </Route>
 ));
 
 function App() {

@@ -24,11 +24,11 @@ function App() {
     /* GoalProvider wraps the entire app, making GoalContext available 
     to child components (e.g. GoalForm, LearningList)
      to modify the goal state or needs access */
-            <GoalProvider>
-                <RouterProvider router={router} /> {/* RouterProvider renders router & controls navigation between diff views */}
-                <h1>Learning Dashboard</h1>
-                <ListContainer />
-                <LearningList />
+        <GoalProvider>
+          <RouterProvider router={router} /> {/* RouterProvider renders router & controls navigation between diff views */}
+          <h1>Learning Dashboard</h1>
+          <ListContainer />
+          <LearningList />
         </GoalProvider>
   );
 }

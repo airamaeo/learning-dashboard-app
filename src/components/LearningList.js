@@ -7,6 +7,7 @@ import GoalForm from "./GoalForm";
 
 export default function LearningList() {
     const { goalLists, editListTitle } = useContext(GoalContext);
+    const deleteList = useContext(GoalContext).deleteList;
 
     const [isEditing, setIsEditing] = useState(null);
     const [newTitle, setNewTitle] = useState("");
@@ -43,6 +44,7 @@ export default function LearningList() {
                         <div>
                             <h2>{list.title}</h2>
                             <button onClick={() => handleEdit(list.id, list.title)}>Edit</button>
+                            <button onClick={() => deleteList(list.id)}>Delete</button>
                         </div>
                     )}
                     <GoalForm listId={list.id} />

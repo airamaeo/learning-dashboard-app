@@ -6,6 +6,7 @@ export default function GoalItem({goal, listId}) {
     const {editGoalText} = useContext(GoalContext);
     const [isEditing, setIsEditing] = useState(false);
     const [newText, setNewText] = useState(goal.text);
+    const {deleteGoal} = useContext(GoalContext);
 
     const handleSaveText = () => {
         editGoalText(goal.id, listId, newText);
@@ -28,6 +29,7 @@ export default function GoalItem({goal, listId}) {
                     <div>
                         <span>{goal.text}</span>
                         <button onClick={() => setIsEditing(true)}>Edit</button>
+                        <button onClick={() => deleteGoal(goal.id, listId)}>Delete</button>
                     </div>
                 )
             }

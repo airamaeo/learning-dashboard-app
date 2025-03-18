@@ -2,7 +2,7 @@
   "name": "learning-dashboard",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://airamaeo.github.io/learning-dashboard-app",
+  "homepage": "https://airamaeo.github.io/learning-dashboard-app/",
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",

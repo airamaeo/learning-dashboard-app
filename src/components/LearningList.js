@@ -14,30 +14,49 @@ export default function LearningList() {
     const handleEdit = (listId, currentTitle) => {
         setIsEditing(listId);
         setNewTitle(currentTitle);
+    };
+
+    const handleSave = (listId) => {
+        editListTitle(listId, newTitle);
+        setIsEditing(null);
     }
 
-    if (!goalLists.length) {
+    if (!goalLists || goalLists.length === 0) {
         return <p>No lists yet. Create one!</p>;
-    }
+    };
 
     return (
         <div>
             {goalLists.map((list) => (
                 <div key={list.id}>
-                    <h2>{list.title}</h2>
-                    <button>Edit</button>
+                    {isEditing === list.id ? (
+                        <div>
+                            <input 
+                                type="text"
+                                value={newTitle}
+                                onChange={(e) => setNewTitle(e.target.value)}
+                            />
+                            <button onClick={() => handleSave(list.id)}>Save</button>
+                            <button onClick={() => setIsEditing(null)}>Cancel</button>
+                        </div>
+                    ) : (
+                        <div>
+                            <h2>{list.title}</h2>
+                            <button onClick={() => handleEdit(list.id, list.title)}>Edit</button>
+                        </div>
+                    )}
                     <GoalForm listId={list.id} />
-                    <ul>
                         {list.goals.length > 0 ? (
-                            list.goals.map((goal) => (
-                                <li key={goal.id}>
-                                    <GoalItem goal={goal} />
-                                </li>
-                            ))
+                            <ul>
+                                {list.goals.map((goal) => (
+                                    <li key={goal.id}>
+                                        <GoalItem goal={goal} listId={list.id}/>
+                                    </li>
+                                ))}
+                            </ul>
                         ) : (
                             <p>No goals yet. Add one!</p>
                         )}
-                    </ul>
                 </div>
             ))}
         </div>

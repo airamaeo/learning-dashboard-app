@@ -1,7 +1,6 @@
 {
   "name": "learning-dashboard",
   "version": "0.1.0",
-  "homepage": "https://airamaeo.github.io//learning-dashboard-app/react-gh-pages",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
@@ -17,7 +16,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

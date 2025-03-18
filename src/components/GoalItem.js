@@ -1,14 +1,36 @@
 /* Renders single goal component */
-import React from "react";
+import React, {useState, useContext} from "react";
+import { GoalContext } from "../context/GoalContext";
 
-export default function GoalItem({goal}) {  
-    if(!goal || !goal.text) {
-        return null; /*if goal or goal.text is not available, return null*/
-    }
+export default function GoalItem({goal, listId}) {  
+    const {editGoalText} = useContext(GoalContext);
+    const [isEditing, setIsEditing] = useState(false);
+    const [newText, setNewText] = useState(goal.text);
+
+    const handleSaveText = () => {
+        editGoalText(goal.id, listId, newText);
+        setIsEditing(false);
+    };
 
     return (
         <div>
-            {goal.text} {/*display text of goal*/}
+            {isEditing ? (
+                <div>
+                    <input 
+                        type="text"
+                        value={newText}
+                        onChange={(e) => setNewText(e.target.value)}
+                    />
+                    <button onClick={handleSaveText}>Save</button>
+                    <button onClick={() => setIsEditing(false)}>Cancel</button>
+                </div>
+                ) : (
+                    <div>
+                        <span>{goal.text}</span>
+                        <button onClick={() => setIsEditing(true)}>Edit</button>
+                    </div>
+                )
+            }
         </div>
     );
 };

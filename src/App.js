@@ -17,7 +17,9 @@ const router = createBrowserRouter(createRoutesFromElements( /*createRoutesFromE
     <Route path="/list-container" element={<ListContainer />} />
     <Route path="/learning-list" element={<LearningList />} />
   </Route>
-));
+), {
+  basename: "/learning-dashboard-app"
+});
 
 function App() {
   return (

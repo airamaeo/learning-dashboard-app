@@ -27,9 +27,9 @@ export default function LearningList() {
     };
 
     return (
-        <div>
+        <div className="list-container">
             {goalLists.map((list) => (
-                <div key={list.id}>
+                <div key={list.id} className="list-card">
                     {isEditing === list.id ? (
                         <div>
                             <input 

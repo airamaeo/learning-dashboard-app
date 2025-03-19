@@ -1,8 +1,8 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     margin: 0;
     padding: 0;
-    background-color: #d4d4d4;
+    background-color: #fdf9f1;
     transition: background-color 0.3s ease;
   }
   
@@ -10,8 +10,11 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
-    color: #353F46;
+    padding: 10px 20px;
+    color: #245e80;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 2px;
   }
   
   header h1 {
@@ -26,58 +29,13 @@ body {
     font-size: 18px;
     border-radius: 5px;
   }
-  
-  /* Container for the lists */
-  .list-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 20px;
-  }
-  
-  .list-card {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    width: 25%;
-    margin: 10px 20px;
-    padding: 20px;
-  }
-  
-  .list-card h2 {
-    margin-top: 0;
-  }
-  
-  input[type="text"] {
-    padding: 10px;
-    font-size: 16px;
-    margin-right: 10px;
-  }
-  
-  button {
-    padding: 10px 15px;
-    font-size: 16px;
-    background-color: #0F6DA3;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #093F5F;
-  }
-  
-  input[type="text"]:focus {
-    outline: none;
-    border: 1px solid #3498db;
-  }
-  
+
   /* Styling for the middle section (create new list) */
   .centered-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 50px;
+    margin-top: 30px;
     padding: 10px;
   }
   
@@ -88,14 +46,114 @@ body {
 
   .title-Btn {
     border-radius: 10px;
-    background-color: #D36013;
+    background-color: #eb9557;
+    padding: 10px 15px;
+    margin: 5px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
   }
 
   .title-input {
-    height: 30px;
     width: 30%;
     border-radius: 10px;
   }
+  
+  /* Container for the lists */
+  .list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+  }
+  
+.list-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    width: 25%;
+    margin: 10px 20px;
+    padding: 20px;
+}
+  
+.list-title {
+    margin-top: 0;
+    display: flex;
+    justify-content: center;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+    color: #245e80;
+}
+
+input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.goal-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    width: 100%;   
+}
+
+.goal-text {
+    flex-grow: 1; 
+    word-wrap: break-word;
+}
+
+.goal-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+  .edit-btn, .delete-btn {
+    display: inline-flex;
+    align-items: flex-end;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin: 2px 2px;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 2px;
+  }
+  
+  .edit-btn {
+    background-color: #245e80;
+  }
+
+  .delete-btn {
+    background-color: #f7856a;
+  }
+
+  .save-btn,
+  .cancel-btn {
+    border: none;
+    background-color: #ffc516;
+    cursor: pointer;
+    font-size: 1rem;
+    margin: 2px 2px;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 2px;
+    padding: 10px 15px;
+  }
+  
+  button:hover {
+    background-color: #4c4c4c;
+  }
+  
+  input[type="text"]:focus {
+    outline: none;
+    border: 1px solid #3498db;
+  }
+  
   
   /* Make the goal list responsive */
   @media (max-width: 768px) {

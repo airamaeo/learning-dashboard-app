@@ -4,6 +4,9 @@ import { GoalContext } from "../context/GoalContext";
 import GoalItem from "./GoalItem";
 import GoalForm from "./GoalForm";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencilAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
+
 
 export default function LearningList() {
     const { goalLists, editListTitle } = useContext(GoalContext);
@@ -23,7 +26,7 @@ export default function LearningList() {
     }
 
     if (!goalLists || goalLists.length === 0) {
-        return <p>No lists yet. Create one!</p>;
+        return <p>No lists yet. Let's get started with your goals!</p>;
     };
 
     return (
@@ -37,14 +40,20 @@ export default function LearningList() {
                                 value={newTitle}
                                 onChange={(e) => setNewTitle(e.target.value)}
                             />
-                            <button onClick={() => handleSave(list.id)}>Save</button>
-                            <button onClick={() => setIsEditing(null)}>Cancel</button>
+                            <button onClick={() => handleSave(list.id)} className="save-btn">Save</button>
+                            <button onClick={() => setIsEditing(null)} className="cancel-btn">Cancel</button>
                         </div>
                     ) : (
                         <div>
-                            <h2>{list.title}</h2>
-                            <button onClick={() => handleEdit(list.id, list.title)}>Edit</button>
-                            <button onClick={() => deleteList(list.id)}>Delete</button>
+                            <h2 className="list-title">{list.title}</h2>
+                            <div className="list-actions">
+                                <button onClick={() => handleEdit(list.id, list.title)} className="edit-btn">
+                                    <FontAwesomeIcon icon={faPencilAlt} />
+                                </button>
+                                <button onClick={() => deleteList(list.id)} className="delete-btn">
+                                    <FontAwesomeIcon icon={faTrash} />
+                                </button>
+                            </div>
                         </div>
                     )}
                     <GoalForm listId={list.id} />
@@ -57,7 +66,7 @@ export default function LearningList() {
                                 ))}
                             </ul>
                         ) : (
-                            <p>No goals yet. Add one!</p>
+                            <p>No goals yet. Add a new goal!</p>
                         )}
                 </div>
             ))}

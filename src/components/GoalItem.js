@@ -2,6 +2,9 @@
 import React, {useState, useContext} from "react";
 import { GoalContext } from "../context/GoalContext";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencilAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
+
 export default function GoalItem({goal, listId}) {  
     const {editGoalText} = useContext(GoalContext);
     const [isEditing, setIsEditing] = useState(false);
@@ -22,14 +25,20 @@ export default function GoalItem({goal, listId}) {
                         value={newText}
                         onChange={(e) => setNewText(e.target.value)}
                     />
-                    <button onClick={handleSaveText}>Save</button>
-                    <button onClick={() => setIsEditing(false)}>Cancel</button>
+                    <button onClick={handleSaveText} className="save-btn">Save</button>
+                    <button onClick={() => setIsEditing(false)} className="cancel-btn">Cancel</button>
                 </div>
                 ) : (
-                    <div>
-                        <span>{goal.text}</span>
-                        <button onClick={() => setIsEditing(true)}>Edit</button>
-                        <button onClick={() => deleteGoal(goal.id, listId)}>Delete</button>
+                    <div className="goal-item">
+                        <span className="goal-text">{goal.text}</span>
+                        <div className="goal-actions">
+                            <button onClick={() => setIsEditing(true)} className="edit-btn">
+                                <FontAwesomeIcon icon={faPencilAlt} />
+                            </button>
+                            <button onClick={() => deleteGoal(goal.id, listId)} className="delete-btn">
+                                <FontAwesomeIcon icon={faTrash} />
+                            </button>
+                        </div>
                     </div>
                 )
             }

@@ -24,7 +24,7 @@ export default function GoalForm({ listId }) {
                 value={goal}
                 onChange={(e) => setGoal(e.target.value)}
             />
-            <button onClick={handleSubmit}>+</button>
+            <button onClick={handleSubmit} className="goal-Btn">+</button>
         </div>
     )
 };

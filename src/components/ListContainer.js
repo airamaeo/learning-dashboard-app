@@ -14,14 +14,15 @@ export default function ListContainer() {
     };
 
     return (
-        <div>
+        <div className="centered-container">
             <input
                 type="text"
                 placeholder="Create a new list of goals"
                 value={listTitle}
                 onChange={(e) => setListTitle(e.target.value)}
+                className="title-input"
             />
-            <button onClick={handleSubmit}>+</button>
+            <button onClick={handleSubmit} className="title-Btn">Create List</button>
         </div>
     );
 }

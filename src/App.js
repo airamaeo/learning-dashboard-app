@@ -28,6 +28,7 @@ function App() {
      to modify the goal state or needs access */
         <GoalProvider>
           <RouterProvider router={router} /> {/* RouterProvider renders router & controls navigation between diff views */}
+          <h1>Learning Dashboard</h1>
           <ListContainer />
           <LearningList />
         </GoalProvider>

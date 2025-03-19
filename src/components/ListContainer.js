@@ -17,7 +17,7 @@ export default function ListContainer() {
         <div>
             <input
                 type="text"
-                placeholder="New Goals List Title"
+                placeholder="Create a new list of goals"
                 value={listTitle}
                 onChange={(e) => setListTitle(e.target.value)}
             />

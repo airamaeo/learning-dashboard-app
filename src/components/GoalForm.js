@@ -20,7 +20,7 @@ export default function GoalForm({ listId }) {
         <div>
             <input
                 type="text"
-                placeholder="Add a goal"
+                placeholder="Add a goal item"
                 value={goal}
                 onChange={(e) => setGoal(e.target.value)}
             />

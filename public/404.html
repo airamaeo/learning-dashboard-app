@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="0; URL='/learning-dashboard-app/'">
+  <meta http-equiv="refresh" content="0; URL='/learning-dashboard-app/#'">
   <title>Page Not Found</title>
   <script>
-    // Redirect to the homepage when a 404 occurs
-    window.location.replace("/learning-dashboard-app/");
+    // Redirect to homepage while preserving hash routes
+    window.location.replace("/learning-dashboard-app/" + window.location.hash);
   </script>
 </head>
 <body>

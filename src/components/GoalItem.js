@@ -39,7 +39,7 @@ export default function GoalItem({ goal, listId }) {
     };
 
     return (
-        <div ref={setNodeRef} style={style} {...attributes} {...listeners} className="goal-item">
+        <div ref={setNodeRef} style={style} {...attributes} className="goal-item">
         {isEditing ? (
             <div>
             <input

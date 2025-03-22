@@ -1,5 +1,6 @@
-/* Displays list of all goals */
-import React, {useState, useContext} from "react";
+import React, { useState, useContext } from "react";
+import { DndContext, closestCenter } from "@dnd-kit/core";
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { GoalContext } from "../context/GoalContext";
 import GoalItem from "./GoalItem";
 import GoalForm from "./GoalForm";
@@ -7,10 +8,8 @@ import GoalForm from "./GoalForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt, faTrash, faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 
-
 export default function LearningList() {
-    const { goalLists, editListTitle, deleteList } = useContext(GoalContext);
-
+    const { goalLists, editListTitle, deleteList, reorderGoals, addGoal } = useContext(GoalContext);
     const [isEditing, setIsEditing] = useState(null);
     const [newTitle, setNewTitle] = useState("");
 
@@ -22,10 +21,11 @@ export default function LearningList() {
     const handleSave = (listId) => {
         editListTitle(listId, newTitle);
         setIsEditing(null);
-    }
+    };
 
-    if (!goalLists || goalLists.length === 0) {
-        return <p>No lists yet. Let's get started with your goals!</p>;
+    const handleDragEnd = ({ active, over }) => {
+        if (!active || !over || active.id === over.id) return;
+        reorderGoals(active.id, over.id); // Fix the reorder logic to make sure the drag works
     };
 
     return (
@@ -37,7 +37,7 @@ export default function LearningList() {
                     <div key={list.id} className="list-card">
                         {isEditing === list.id ? (
                             <div className="edit-mode">
-                                <input 
+                                <input
                                     type="text"
                                     value={newTitle}
                                     onChange={(e) => setNewTitle(e.target.value)}
@@ -58,21 +58,34 @@ export default function LearningList() {
                                 {list.title}
                             </h2>
                         )}
-                    <GoalForm listId={list.id} />
-                        {list.goals.length > 0 ? (
-                            <ul>
-                                {list.goals.map((goal) => (
-                                    <li key={goal.id}>
-                                        <GoalItem goal={goal} listId={list.id} />
-                                    </li>
-                                ))}
-                            </ul>
-                        ) : (
-                            <p>No goals yet. Add a new goal!</p>
-                        )}
+
+                        <GoalForm listId={list.id} />
+
+                        {/* Drag-and-drop context */}
+                        <DndContext
+                            collisionDetection={closestCenter}
+                            onDragEnd={handleDragEnd}
+                        >
+                            <SortableContext 
+                                items={list.goals.map((goal) => goal.id)} 
+                                strategy={verticalListSortingStrategy}
+                            >
+                                {list.goals.length > 0 ? (
+                                    <ul>
+                                        {list.goals.map((goal) => (
+                                            <li key={goal.id}>
+                                                <GoalItem goal={goal} listId={list.id} />
+                                            </li>
+                                        ))}
+                                    </ul>
+                                ) : (
+                                    <p>No goals yet. Add a new goal!</p>
+                                )}
+                            </SortableContext>
+                        </DndContext>
                     </div>
                 ))
             )}
         </div>
     );
-};
+}

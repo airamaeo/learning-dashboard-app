@@ -46,50 +46,67 @@ export function GoalProvider({children}) {
             list.id === listId ? { ...list, title: newTitle } : list
         ));
     };
-    
-
-    // Function to edit goal text
-    const editGoalText = (goalId, listId, newText) => {
-        setGoalLists((prevLists) =>
-            prevLists.map((list) =>
-                list.id === listId
-                    ? {
-                        ...list,
-                        goals: list.goals.map((goal) =>
-                            goal.id === goalId ? { ...goal, text: newText } : goal
-                        ),
-                    }
-                    : list
-            )
-        );
-    };
 
     //Function to delete a list
     const deleteList = (listId) => {
         setGoalLists((prevLists) => prevLists.filter((list) => list.id !== listId));
     };
 
-    // Functio to delete goal item
+    // Function to edit the text of a goal
+    const editGoalText = (goalId, listId, newText) => {
+        setGoalLists((prevLists) =>
+        prevLists.map((list) =>
+            list.id === listId
+            ? {
+                ...list,
+                goals: list.goals.map((goal) =>
+                    goal.id === goalId ? { ...goal, text: newText } : goal
+                ),
+                }
+            : list
+        )
+        );
+    };
+    
+    // Function to delete goal item
     const deleteGoal = (goalId, listId) => {
         setGoalLists((prevLists) =>
-            prevLists.map((list) => 
-                list.id === listId
-                    ? {
-                        ...list,
-                        goals: list.goals.filter((goal) => goal.id !== goalId
-                    ),
-                    }
-                    : list
-                ) 
+        prevLists.map((list) =>
+            list.id === listId
+            ? {
+                ...list,
+                goals: list.goals.filter((goal) => goal.id !== goalId),
+                }
+            : list
+        )
         );
-    }
+    };
     
+    // Function to drag and re-order goal list item
+    const reorderGoals = (listId, activeId, overId) => {
+        setGoalLists((prevLists) =>
+            prevLists.map((list) => {
+                if(list.id !== listId) return list;
+
+                const oldIndex = list.goals.findIndex(goal => goal.id === activeId);
+                const newIndex = list.goals.findIndex(goal => goal.id === overId);
+
+                if(oldIndex === -1 || newIndex === -1) return list;
+
+                const reorderedGoals = [...list.goals];
+                const [movedGoal] = reorderedGoals.splice(oldIndex, 1);
+                reorderedGoals.splice(newIndex, 0, movedGoal);
+
+                return {...list, goals: reorderedGoals};
+            })
+        )
+    };
 
     return (
         <div>
             {/* GoalContext.Provider makes the goals 
             & addGoal function available to child components (e.g. App) via the context */}
-            <GoalContext.Provider value={{ goalLists, addList, addGoal, editListTitle, editGoalText, deleteList, deleteGoal }}>
+            <GoalContext.Provider value={{ goalLists, addList, addGoal, editListTitle, editGoalText, deleteList, deleteGoal, reorderGoals }}>
                 {children}
             </GoalContext.Provider>
         </div>

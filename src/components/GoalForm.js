@@ -23,6 +23,7 @@ export default function GoalForm({ listId }) {
                 placeholder="Add a goal item"
                 value={goal}
                 onChange={(e) => setGoal(e.target.value)}
+                className="goal-input"
             />
             <button onClick={handleSubmit} className="goal-Btn">+</button>
         </div>

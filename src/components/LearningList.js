@@ -6,10 +6,10 @@ import GoalItem from "./GoalItem";
 import GoalForm from "./GoalForm";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencilAlt, faTrash, faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 export default function LearningList() {
-    const { goalLists, editListTitle, deleteList, reorderGoals, addGoal } = useContext(GoalContext);
+    const { goalLists, editListTitle, deleteList, reorderGoals } = useContext(GoalContext);
     const [isEditing, setIsEditing] = useState(null);
     const [newTitle, setNewTitle] = useState("");
 

@@ -17,7 +17,7 @@ export default function GoalForm({ listId }) {
     };
 
     return (
-        <div>
+        <div class="goal-input-container">
             <input
                 type="text"
                 placeholder="Add a goal item"

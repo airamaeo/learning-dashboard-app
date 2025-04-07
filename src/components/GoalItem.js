@@ -3,8 +3,8 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { GoalContext } from '../context/GoalContext';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGripVertical, faTrash, faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 export default function GoalItem({ goal, listId }) {
     const { editGoalText, deleteGoal } = useContext(GoalContext);
@@ -16,21 +16,14 @@ export default function GoalItem({ goal, listId }) {
 
     const handleSaveText = () => {
         if (newText.trim() !== goal.text) {
-        console.log('Saving goal text:', newText); // Debugging
-        editGoalText(goal.id, listId, newText);
+            editGoalText(goal.id, listId, newText);
         }
         setIsEditing(false);
     };
 
     const handleDeleteGoal = (e) => {
         e.stopPropagation();
-        console.log('Deleting goal:', goal.id); // Debugging
         deleteGoal(goal.id, listId);
-    };
-
-    const handleEditGoal = (e) => {
-        e.stopPropagation();
-        setIsEditing(true);
     };
 
     const style = {
@@ -39,38 +32,57 @@ export default function GoalItem({ goal, listId }) {
     };
 
     return (
-        <div ref={setNodeRef} style={style} {...attributes} className="goal-item">
-        {isEditing ? (
-            <div>
-            <input
-                type="text"
-                value={newText}
-                onChange={(e) => setNewText(e.target.value)}
-            />
-            <button onClick={handleSaveText} className="save-btn">
-                Save
-            </button>
-            <button onClick={() => setIsEditing(false)} className="cancel-btn">
-                Cancel
-            </button>
-            </div>
-        ) : (
-            <div className="goal-content">
-            <span className="goal-text">{goal.text}</span>
-            <div className="goal-actions">
-                        {/* Drag handle button */}
-                        <button {...listeners} className="drag-handle">
-                            ↕️
+        <div
+            ref={setNodeRef}
+            style={style}
+            {...attributes}
+            className={`goal-item ${isEditing ? 'editing' : ''}`}
+            onClick={() => setIsEditing(true)}
+        >
+            {isEditing ? (
+                <div
+                    className="edit-container-wrapper"
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    <div className="edit-row">
+                        {/* Drag handle stays beside input only in editing mode */}
+                        <button
+                            {...listeners}
+                            onClick={(e) => e.stopPropagation()}
+                            className="drag-handle"
+                        >
+                            <FontAwesomeIcon icon={faGripVertical} />
                         </button>
-                        <button onClick={handleEditGoal} className="edit-btn">
-                            <FontAwesomeIcon icon={faPencilAlt} />
+
+                        <input
+                            type="text"
+                            value={newText}
+                            onChange={(e) => setNewText(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') handleSaveText();
+                                else if (e.key === 'Escape') setIsEditing(false);
+                            }}
+                            autoFocus
+                            className="goal-text"
+                        />
+                    </div>
+
+                    <div className="edit-container">
+                        <button onClick={handleSaveText} className="save-btn">
+                            <FontAwesomeIcon icon={faCheck} />
+                        </button>
+                        <button onClick={() => setIsEditing(false)} className="cancel-btn">
+                            <FontAwesomeIcon icon={faTimes} />
                         </button>
                         <button onClick={handleDeleteGoal} className="delete-btn">
                             <FontAwesomeIcon icon={faTrash} />
                         </button>
                     </div>
-            </div>
-        )}
+                </div>
+            ) : (
+                // Only display goal text in non-editing mode
+                <span className="goal-text" style={{ marginLeft: 10 }}>{goal.text}</span>
+            )}
         </div>
     );
-    }
+}

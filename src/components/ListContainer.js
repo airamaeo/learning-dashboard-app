@@ -13,6 +13,7 @@ export default function ListContainer() {
         }
     };
 
+
     return (
         <div className="centered-container">
             <input
@@ -20,6 +21,10 @@ export default function ListContainer() {
                 placeholder="Create a new list of goals"
                 value={listTitle}
                 onChange={(e) => setListTitle(e.target.value)}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter') handleSubmit(e);
+                    else if (e.key === 'Escape') setListTitle("");
+                }}
                 className="title-input"
             />
             <button onClick={handleSubmit} className="title-Btn">Create List</button>

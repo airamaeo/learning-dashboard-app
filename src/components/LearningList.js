@@ -41,6 +41,10 @@ export default function LearningList() {
                                     type="text"
                                     value={newTitle}
                                     onChange={(e) => setNewTitle(e.target.value)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') handleSave();
+                                        else if (e.key === 'Escape') setIsEditing(false);
+                                    }}
                                     autoFocus
                                 />
                                 <button onClick={() => handleSave(list.id)} className="save-btn">

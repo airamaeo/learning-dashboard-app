@@ -50,7 +50,8 @@ export default function LearningList() {
                                 <button onClick={() => handleSave(list.id)} className="save-btn">
                                     <FontAwesomeIcon icon={faCheck} />
                                 </button>
-                                <button onClick={() => setIsEditing(null)} className="cancel-btn">
+                                <button onClick={() => setIsEditing(null)}
+                                className="cancel-btn">
                                     <FontAwesomeIcon icon={faTimes} />
                                 </button>
                                 <button onClick={() => deleteList(list.id)} className="delete-btn">

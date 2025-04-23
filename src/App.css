@@ -90,12 +90,11 @@ header button:hover {
 }
 
 .list-card {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   width: 28%;
-  padding: 20px;
   min-width: 250px;
+  padding: 20px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .list-title {
@@ -245,4 +244,144 @@ ul, ol {
   align-items: center;
   gap: 10px;
   width: 100%;
+}
+
+/* Theme Toggle */
+body.light {
+  background-color: #fdf9f1;
+  color: #333;
+}
+
+body.dark {
+  background-color: #121212;
+  color: #f5f5f5;
+}
+
+body.light .list-card {
+  background: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  color: #333;
+  position: relative;
+  border-left: 6px solid #eb9557; /* default warm accent */
+}
+
+body.dark .list-card {
+  background: #1f1f1f;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  color: #f5f5f5;
+  position: relative;
+  border-left: 6px solid #eb9557; /* default warm accent */
+}
+
+/* ALT CARD COLOR ACCENTS (every 3 cards) */
+body.dark .list-card:nth-child(3n) {
+  border-left-color: #eb9557; /* coral */
+}
+body.dark .list-card:nth-child(3n+1) {
+  border-left-color: #6dc0d5; /* teal */
+}
+body.dark .list-card:nth-child(3n+2) {
+  border-left-color: #ffc516; /* gold */
+}
+
+/* ALT CARD COLOR ACCENTS (every 3 cards) */
+body.light .list-card:nth-child(3n) {
+  border-left-color: #eb9557; /* coral */
+}
+body.light .list-card:nth-child(3n+1) {
+  border-left-color: #6dc0d5; /* teal */
+}
+body.light .list-card:nth-child(3n+2) {
+  border-left-color: #ffc516; /* gold */
+}
+
+/* Header */
+body.dark header {
+  background-color: #1a1a1a;
+  color: #f5f5f5;
+}
+
+/* INPUTS */
+body.dark input[type="text"] {
+  background-color: #1e1e1e;
+  border-color: #555;
+  color: #f5f5f5;
+}
+
+body.dark input[type="text"]:focus {
+  background-color: #262626;
+  border-color: #888;
+}
+
+/* BUTTONS */
+body.dark button {
+  background-color: #d07e45;
+}
+
+body.dark button:hover {
+  background-color: #eb9557;
+}
+
+body.dark .save-btn,
+body.dark .cancel-btn,
+body.dark .delete-btn,
+body.dark .title-Btn,
+body.dark .goal-Btn {
+  background-color: #0b577f;
+  color: #f5f5f5;
+  border: 1px solid #444;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+body.dark .save-btn:hover,
+body.dark .cancel-btn:hover,
+body.dark .delete-btn:hover,
+body.dark .title-Btn:hover,
+body.dark .goal-Btn:hover {
+  background-color: #245e80;
+  border-color: #666;
+}
+
+/* TITLE COLOR POP */
+body.dark .list-title {
+  color: #ffcba4; /* soft peach */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* GOAL ITEMS */
+body.dark .goal-item {
+  background-color: #181818;
+  border-bottom: 1px solid #333;
+}
+
+/* DRAG HANDLE */
+body.dark .drag-handle {
+  color: #aaa;
+}
+
+/* TRANSITIONS */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button,
+input,
+.list-card,
+.goal-item {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+
+/* MEDIA QUERIES */
+
+@media (max-width: 900px) {
+  .list-card {
+    width: 45%;
+  }
+}
+
+@media (max-width: 600px) {
+  .list-card {
+    width: 90%;
+  }
 }

@@ -34,7 +34,21 @@ export function GoalProvider({children}) {
         setGoalLists((prevLists) =>
             prevLists.map((list) =>
                 list.id === listId
-                    ? { ...list, goals: [...list.goals, { id: uuidv4(), text: goalText }] }
+                    ? { ...list, goals: [...list.goals, { id: uuidv4(), text: goalText, completed: false }] }
+                    : list
+            )
+        );
+    };
+
+    // Function to mark goals as completed
+    const toggleGoalCompletion = (goalId, listId) => {
+        setGoalLists((prevLists) =>
+            prevLists.map((list) => 
+                list.id === listId
+                    ? {...list, goals: list.goals.map((goal) =>
+                        goal.id === goalId ? { ...goal, completed: !goal.completed } : goal
+                    ),
+                    }
                     : list
             )
         );
@@ -106,7 +120,7 @@ export function GoalProvider({children}) {
         <div>
             {/* GoalContext.Provider makes the goals 
             & addGoal function available to child components (e.g. App) via the context */}
-            <GoalContext.Provider value={{ goalLists, addList, addGoal, editListTitle, editGoalText, deleteList, deleteGoal, reorderGoals }}>
+            <GoalContext.Provider value={{ goalLists, addList, addGoal, toggleGoalCompletion, editListTitle, editGoalText, deleteList, deleteGoal, reorderGoals }}>
                 {children}
             </GoalContext.Provider>
         </div>

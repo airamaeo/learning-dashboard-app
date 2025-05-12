@@ -6,12 +6,13 @@ import GoalItem from "./GoalItem";
 import GoalForm from "./GoalForm";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faCheck, faTimes, faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 
 export default function LearningList() {
     const { goalLists, editListTitle, deleteList, reorderGoals } = useContext(GoalContext);
     const [isEditing, setIsEditing] = useState(null);
     const [newTitle, setNewTitle] = useState("");
+    const [filters, setFilters] = useState({}); // Per-list filter states
 
     const handleEdit = (listId, currentTitle) => {
         setIsEditing(listId);
@@ -23,9 +24,16 @@ export default function LearningList() {
         setIsEditing(null);
     };
 
+    const handleFilterChange = (listId, value) => {
+        setFilters((prev) => ({
+            ...prev,
+            [listId]: value,
+        }));
+    };
+
     const handleDragEnd = ({ active, over }) => {
         if (!active || !over || active.id === over.id) return;
-        reorderGoals(active.id, over.id); // Fix the reorder logic to make sure the drag works
+        reorderGoals(active.id, over.id);
     };
 
     return (
@@ -42,16 +50,15 @@ export default function LearningList() {
                                     value={newTitle}
                                     onChange={(e) => setNewTitle(e.target.value)}
                                     onKeyDown={(e) => {
-                                        if (e.key === 'Enter') handleSave();
-                                        else if (e.key === 'Escape') setIsEditing(false);
+                                        if (e.key === 'Enter') handleSave(list.id);
+                                        else if (e.key === 'Escape') setIsEditing(null);
                                     }}
                                     autoFocus
                                 />
                                 <button onClick={() => handleSave(list.id)} className="save-btn">
                                     <FontAwesomeIcon icon={faCheck} />
                                 </button>
-                                <button onClick={() => setIsEditing(null)}
-                                className="cancel-btn">
+                                <button onClick={() => setIsEditing(null)} className="cancel-btn">
                                     <FontAwesomeIcon icon={faTimes} />
                                 </button>
                                 <button onClick={() => deleteList(list.id)} className="delete-btn">
@@ -59,14 +66,78 @@ export default function LearningList() {
                                 </button>
                             </div>
                         ) : (
-                            <h2 className="list-title" onClick={() => handleEdit(list.id, list.title)}>
-                                {list.title}
-                            </h2>
+                            <div className="list-header">
+                                {isEditing === list.id ? (
+                                    <>
+                                        <input
+                                            type="text"
+                                            value={newTitle}
+                                            onChange={(e) => setNewTitle(e.target.value)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === 'Enter') handleSave(list.id);
+                                                else if (e.key === 'Escape') setIsEditing(null);
+                                            }}
+                                            autoFocus
+                                        />
+                                        <button onClick={() => handleSave(list.id)} className="save-btn">
+                                            <FontAwesomeIcon icon={faCheck} />
+                                        </button>
+                                        <button onClick={() => setIsEditing(null)} className="cancel-btn">
+                                            <FontAwesomeIcon icon={faTimes} />
+                                        </button>
+                                        <button onClick={() => deleteList(list.id)} className="delete-btn">
+                                            <FontAwesomeIcon icon={faTrash} />
+                                        </button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <h2 className="list-title" onClick={() => handleEdit(list.id, list.title)}>
+                                            {list.title}
+                                        </h2>
+
+                                        <div className="filter-menu">
+                                            <button
+                                                className="filter-btn"
+                                                onClick={() =>
+                                                    setFilters((prev) => ({
+                                                        ...prev,
+                                                        [`${list.id}_open`]: !prev[`${list.id}_open`],
+                                                    }))
+                                                }
+                                            >
+                                                <FontAwesomeIcon icon={faEllipsisV} />
+                                            </button>
+                                            {filters[`${list.id}_open`] && (
+                                                <ul className="filter-options">
+                                                    <li
+                                                        onClick={() => handleFilterChange(list.id, "all")}
+                                                        className={filters[list.id] === "all" ? "active" : ""}
+                                                    >
+                                                        All
+                                                    </li>
+                                                    <li
+                                                        onClick={() => handleFilterChange(list.id, "completed")}
+                                                        className={filters[list.id] === "completed" ? "active" : ""}
+                                                    >
+                                                        Completed
+                                                    </li>
+                                                    <li
+                                                        onClick={() => handleFilterChange(list.id, "inProgress")}
+                                                        className={filters[list.id] === "inProgress" ? "active" : ""}
+                                                    >
+                                                        In Progress
+                                                    </li>
+                                                </ul>
+                                            )}
+                                        </div>
+                                    </>
+                                )}
+                            </div>
                         )}
+
 
                         <GoalForm listId={list.id} />
 
-                        {/* Drag-and-drop context */}
                         <DndContext
                             collisionDetection={closestCenter}
                             onDragEnd={handleDragEnd}
@@ -77,10 +148,17 @@ export default function LearningList() {
                             >
                                 {list.goals.length > 0 ? (
                                     <ul>
-                                        {list.goals.map((goal) => (
-                                            <li key={goal.id}>
-                                                <GoalItem goal={goal} listId={list.id} />
-                                            </li>
+                                        {list.goals
+                                            .filter((goal) => {
+                                                const filterValue = filters[list.id] || "all";
+                                                if (filterValue === "completed") return goal.completed;
+                                                if (filterValue === "inProgress") return !goal.completed;
+                                                return true;
+                                            })
+                                            .map((goal) => (
+                                                <li key={goal.id}>
+                                                    <GoalItem goal={goal} listId={list.id} />
+                                                </li>
                                         ))}
                                     </ul>
                                 ) : (

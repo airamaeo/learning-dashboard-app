@@ -107,6 +107,24 @@ header button:hover {
   color: #245e80;
 }
 
+.list-title-container {
+  min-height: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.placeholder-title {
+  color: #aaa;
+  font-style: normal;
+  font-weight: 200;
+}
+body.dark .placeholder-title {
+  color: #666;
+}
+
+
 /*************************************************************************/
 
 /* GOAL INPUT */

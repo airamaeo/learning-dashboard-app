@@ -91,9 +91,15 @@ export default function LearningList() {
                                     </>
                                 ) : (
                                     <>
-                                        <h2 className="list-title" onClick={() => handleEdit(list.id, list.title)}>
-                                            {list.title}
-                                        </h2>
+                                        <div
+                                            className="list-title-container"
+                                            onClick={() => handleEdit(list.id, list.title)}
+                                        >
+                                            <h2 className="list-title">
+                                                {list.title || <em className="placeholder-title">Click to add a title</em>}
+                                            </h2>
+                                        </div>
+
 
                                         <div className="filter-menu">
                                             <button

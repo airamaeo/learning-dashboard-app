@@ -1,6 +1,6 @@
 # 🧠 Learning Dashboard
 
-A goal-setting and productivity app that helps users create, organize, and track progress on learning goals. Built with React, featuring drag-and-drop support, persistent storage, filtering, and theme toggling.
+A goal-setting app built with React that helps you plan, organize, and track your learning goals. It supports drag-and-drop tasks, filtering, light/dark themes, and saves your progress.
 
 ---
 

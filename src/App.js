@@ -12,17 +12,15 @@ import ThemeToggle from './components/ThemeToggle';
 
 import './App.css';
 
-const router = createBrowserRouter(createRoutesFromElements( /*createRoutesFromElements - helper function to define the routes*/
-  <Route path="/" element={<Root />}> {/* "/" will display the Root component */}
+const router = createBrowserRouter(createRoutesFromElements(
+  <Route path="/" element={<Root />}>
     <Route path="/goal-form" element={<GoalForm />} />
     <Route path="/goal-item" element={<GoalItem />} />
     <Route path="/list-container" element={<ListContainer />} />
     <Route path="/learning-list" element={<LearningList />} />
     <Route path="/theme-toggle" element={<ThemeToggle />} />
   </Route>
-), {
-  basename: "/learning-dashboard-app"
-});
+));
 
 function App() {
   return (

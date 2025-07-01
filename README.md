@@ -3,6 +3,8 @@
 A goal-setting app built with React that helps you plan, organize, and track your learning goals. It supports drag-and-drop tasks, filtering, light/dark themes, and saves your progress.
 
 ---
+Live Demo: https://learning-dashboard-app.vercel.app/
+
 
 ## Features
 

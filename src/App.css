@@ -473,14 +473,52 @@ input,
 
 /* MEDIA QUERIES */
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
+  header {
+    font-size: 1.2rem;
+  }
+
+  .title-input {
+    width: 50%;
+    border-radius: 8px;
+  }
+  
+  input[type="text"] {
+    font-size: 1rem;
+  }
+  
   .list-card {
-    width: 45%;
+    width: 80%;
+  }
+
+  .list-title {
+    text-align: center;
+    font-size: 1.5rem;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
+  header {
+    font-size: 1rem;
+  }
+
+  .title-input {
+    width: 50%;
+    border-radius: 8px;
+  }
+  
+  input[type="text"] {
+    font-size: 0.875rem;
+  }
+  
   .list-card {
     width: 90%;
   }
+
+  .list-title {
+    text-align: center;
+    font-size: 1.2rem;
+  }
+
+
 }

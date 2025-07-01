@@ -1,7 +1,6 @@
 {
   "name": "learning-dashboard",
   "version": "0.1.0",
-  "homepage": "https://airamaeo.github.io/learning-dashboard-app/react-gh-pages",
   "private": true,
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
